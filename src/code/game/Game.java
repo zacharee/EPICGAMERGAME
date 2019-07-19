@@ -3,16 +3,18 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 
-    public static final int WIDTH = 640, HEIGHT = 480;
+    public static final int WIDTH = 800, HEIGHT = 600;
 
     private Thread thread;
     private boolean running = false;
     private Handler handler;
 
     public Game() {
+        handler = new Handler();
+        this.addKeyListener(new KeyInput(handler));
 
         new Window(WIDTH, HEIGHT, "BudgetScrolls", this);
-        handler = new Handler();
+
         handler.addObject(new  Player(100, 100, ID.Player));
 
     }
@@ -46,6 +48,7 @@ public class Game extends Canvas implements Runnable{
             e.printStackTrace();
         }
         while(running) {
+            requestFocus();
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
