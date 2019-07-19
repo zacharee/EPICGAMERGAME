@@ -1,14 +1,19 @@
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 
-    public static final int WIDTH = 800, HEIGHT = 600;
+    public static final int WIDTH = 640, HEIGHT = 480;
+
     private Thread thread;
     private boolean running = false;
+    private Handler handler;
 
     public Game() {
 
         new Window(WIDTH, HEIGHT, "BudgetScrolls", this);
+        handler = new Handler();
+        handler.addObject(new  Player(100, 100, ID.Player));
 
     }
 
@@ -29,11 +34,17 @@ public class Game extends Canvas implements Runnable{
 
     public void run() {
         long lastTime = System.nanoTime();
-        double amountofTicks = 60.0;
-        double ns = 1000000000 / amountofTicks;
+        double amountOfTicks = 60.0;
+        double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
+        //Sometimes it reaches the while(running) before running is set to true, idk why. The sleep fixes it for now
+        try {
+            thread.sleep(100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         while(running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
@@ -57,11 +68,25 @@ public class Game extends Canvas implements Runnable{
     }
 
     public void tick() {
-
+        handler.tick();
     }
 
     public void render() {
+        BufferStrategy bs = this.getBufferStrategy();
+        if (bs == null) {
+            this.createBufferStrategy(3);
+            return;
+        }
 
+        Graphics g = bs.getDrawGraphics();
+
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0, WIDTH, HEIGHT);
+
+        handler.render(g);
+
+        g.dispose();
+        bs.show();
     }
 
     public static void main(String[] args) {
