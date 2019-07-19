@@ -13,15 +13,18 @@ public class Player extends GameObject {
     public void tick() {
         x += velX;
         y += velY;
+
+        x = Game.clamp(x, 0, Game.WIDTH - 16);
+        y = Game.clamp(y, 0, Game.HEIGHT - 140);
     }
 
     public void render(Graphics g) {
         g.setColor(Color.YELLOW);
-        g.fillRect(x, y, 200, 200);
+        g.fillRect(x-50, y, 16, 16);
         g.setColor(Color.RED);
-        g.fillRect((x+64), (y+64), 16, 16);
-        g.fillRect((x+150), (y+64), 16, 16);
-        g.fillRect((x+60), (y+128), 112, 16);
+        g.fillRect((x-46), (y+4), 2, 2);
+        g.fillRect((x-40), (y+4), 2, 2);
+        g.fillRect((x-46), (y+10), 8, 2);
     }
 
 }

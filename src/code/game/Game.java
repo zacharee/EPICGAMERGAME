@@ -15,7 +15,9 @@ public class Game extends Canvas implements Runnable{
 
         new Window(WIDTH, HEIGHT, "BudgetScrolls", this);
 
-        handler.addObject(new  Player(100, 100, ID.Player));
+        handler.addObject(new Ground(0, 140, ID.Ground));
+        handler.addObject(new  Player(0, 460, ID.Player));
+        handler.addObject(new WeakMinion(0, 452, ID.WeakMinion));
 
     }
 
@@ -83,13 +85,23 @@ public class Game extends Canvas implements Runnable{
 
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.blue);
         g.fillRect(0,0, WIDTH, HEIGHT);
 
         handler.render(g);
 
         g.dispose();
         bs.show();
+    }
+
+    public static int clamp (int var, int min, int max) {
+        if(var >= max) {
+            return var = max;
+        } else if (var <= min) {
+            return var = min;
+        } else {
+            return var;
+        }
     }
 
     public static void main(String[] args) {
