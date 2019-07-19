@@ -8,6 +8,7 @@ public class Game extends Canvas implements Runnable{
     private Thread thread;
     private boolean running = false;
     private Handler handler;
+    private HUD hud;
 
     public Game() {
         handler = new Handler();
@@ -15,8 +16,10 @@ public class Game extends Canvas implements Runnable{
 
         new Window(WIDTH, HEIGHT, "BudgetScrolls", this);
 
+        hud = new HUD();
+
         handler.addObject(new Ground(0, 140, ID.Ground));
-        handler.addObject(new  Player(0, 460, ID.Player));
+        handler.addObject(new  Player(WIDTH/2-32, 460, ID.Player, handler));
         handler.addObject(new WeakMinion(0, 452, ID.WeakMinion));
 
     }
@@ -74,6 +77,7 @@ public class Game extends Canvas implements Runnable{
 
     public void tick() {
         handler.tick();
+        hud.tick();
     }
 
     public void render() {
@@ -89,6 +93,8 @@ public class Game extends Canvas implements Runnable{
         g.fillRect(0,0, WIDTH, HEIGHT);
 
         handler.render(g);
+
+        hud.render(g);
 
         g.dispose();
         bs.show();

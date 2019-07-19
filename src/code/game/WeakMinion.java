@@ -10,6 +10,10 @@ public class WeakMinion extends GameObject{
 
     }
 
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, 24, 24);
+    }
+
     public void tick() {
         x += velX;
         y += velY;
