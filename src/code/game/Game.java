@@ -19,7 +19,7 @@ public class Game extends Canvas implements Runnable{
         hud = new HUD();
 
         handler.addObject(new Ground(0, 140, ID.Ground));
-        handler.addObject(new  Player(WIDTH/2-32, 460, ID.Player, handler));
+        handler.addObject(new Player(WIDTH/2-32, 460, ID.Player, handler));
         handler.addObject(new WeakMinion(0, 452, ID.WeakMinion));
 
     }
