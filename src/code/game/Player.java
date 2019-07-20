@@ -48,6 +48,7 @@ public class Player extends GameObject {
                     WeakMinion.WEAK_MINION_HEALTH -=2;
                     if(PLAYER_HEALTH == 0) {
                         System.out.println("You died to a weak minion!");
+                        handler.removeObject(this);
                     }
                     if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
                         handler.removeObject(tempObject);
