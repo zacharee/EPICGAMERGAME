@@ -18,7 +18,7 @@ public class Ground extends GameObject {
 
     public void render(Graphics g) {
         g.setColor(new Color(144, 108, 63));
-        g.fillRect(0, 496, Game.WIDTH, 140);
+        g.fillRect(0, 496, Game.WIDTH, 200);
         g.setColor(Color.green);
         g.fillRect(0, 476, Game.WIDTH, 20);
     }

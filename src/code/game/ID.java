@@ -3,5 +3,6 @@ public enum ID {
     Player(),
     WeakMinion(),
     Ground(),
-    DoubleJumpPowerup()
+    DoubleJumpPowerup(),
+    HealthPowerup();
 }

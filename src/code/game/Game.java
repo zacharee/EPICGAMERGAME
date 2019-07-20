@@ -3,12 +3,13 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 
-    public static final int WIDTH = 800, HEIGHT = 600;
+    public static final int WIDTH = 1280, HEIGHT = 720;
 
     private Thread thread;
     private boolean running = false;
     private Handler handler;
     private HUD hud;
+    private int fps;
 
     public Game() {
         handler = new Handler();
@@ -18,10 +19,13 @@ public class Game extends Canvas implements Runnable{
 
         hud = new HUD();
 
-        handler.addObject(new Ground(0, 140, ID.Ground));
-        handler.addObject(new Player(WIDTH/2-32, 460, ID.Player, handler));
+        //X currently not needed - Y is weird, need fixing/reworking. ID is important though
+        handler.addObject(new Ground(0, 0, ID.Ground));
+        handler.addObject(new Player(0, 460, ID.Player, handler));
         handler.addObject(new WeakMinion(0, 452, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(0, 400, ID.DoubleJumpPowerup));
+        handler.addObject(new HealthPowerUp(0, 400, ID.HealthPowerup));
+        handler.addObject(new HealthPowerUp(0, 400, ID.HealthPowerup));
 
     }
 
@@ -69,7 +73,8 @@ public class Game extends Canvas implements Runnable{
 
             if(System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                System.out.println("FPS: " + frames);
+                fps = frames;
+                //System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }
@@ -92,6 +97,10 @@ public class Game extends Canvas implements Runnable{
 
         g.setColor(Color.blue);
         g.fillRect(0,0, WIDTH, HEIGHT);
+
+        g.setFont(new Font("Verdanna", 1, 16));
+        g.setColor(Color.GREEN);    //FPS counter colour
+        g.drawString( fps+" FPS", WIDTH-100,40);
 
         handler.render(g);
 

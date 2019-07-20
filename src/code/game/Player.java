@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class Player extends GameObject {
 
+    public static int PLAYER_HEALTH = 100;
     Handler handler;
     static boolean canDoubleJump=false, isFalling=false;
 
@@ -19,7 +20,19 @@ public class Player extends GameObject {
         x += velX;
         y += velY;
 
-        x = Game.clamp(x, 0, Game.WIDTH - 16);
+        x = Game.clamp(x, 0, Game.WIDTH - 32);
+
+        if(PLAYER_HEALTH <= 0) {
+            handler.removeObject(this);
+        }
+
+        if(KeyInput.leftAttack) {
+            leftAttack();
+        }
+
+        if(KeyInput.rightAttack) {
+            rightAttack();
+        }
 
         collision();
     }
@@ -31,15 +44,28 @@ public class Player extends GameObject {
 
             if(tempObject.getID() == ID.WeakMinion) {
                 if(getBounds().intersects(tempObject.getBounds())) {
-                    //Collision code oioi
-                    System.out.println("bang ouch");
-                    HUD.HEALTH -= 2;
-
+                    PLAYER_HEALTH -= 2;
+                    WeakMinion.WEAK_MINION_HEALTH -=2;
+                    if(PLAYER_HEALTH == 0) {
+                        System.out.println("You died to a weak minion!");
+                    }
+                    if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
+                        handler.removeObject(tempObject);
+                        Player.PLAYER_HEALTH += 25;
+                        System.out.println("You killed a weak minion - nice!");
+                    }
                 }
             }
             if(tempObject.getID() == ID.DoubleJumpPowerup) {
                 if(getBounds().intersects(tempObject.getBounds())) {
                     canDoubleJump=true;
+                    handler.removeObject(tempObject);
+                }
+            }
+            if(tempObject.getID() == ID.HealthPowerup) {
+                if(getBounds().intersects(tempObject.getBounds())) {
+                    PLAYER_HEALTH += 25;
+                    handler.removeObject(tempObject);
                 }
             }
         }
@@ -52,6 +78,14 @@ public class Player extends GameObject {
         g.fillRect((x+4), (y+4), 2, 2);
         g.fillRect((x+10), (y+4), 2, 2);
         g.fillRect((x+4), (y+10), 8, 2);
+    }
+
+    public void leftAttack() {
+        System.out.println("boom to the left");
+    }
+
+    public void rightAttack() {
+        System.out.println("boom to the right");
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.TimerTask;
 public class KeyInput extends KeyAdapter {
 
     private Handler handler;
-    boolean aDown=false, dDown=false, doubleJump=false;
+    public static boolean aDown=false, dDown=false, doubleJump=false, rightAttack = false, leftAttack = false;
     private Timer timer = new Timer();
 
     public KeyInput(Handler handler) {
@@ -31,6 +31,14 @@ public class KeyInput extends KeyAdapter {
                 if(key == KeyEvent.VK_D) {
                     tempObject.setVelX(+5);
                     dDown = true;
+                }
+
+                if(key == KeyEvent.VK_LEFT) {
+                    leftAttack = true;
+                }
+
+                if(key == KeyEvent.VK_RIGHT) {
+                    rightAttack = true;
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
@@ -97,6 +105,15 @@ public class KeyInput extends KeyAdapter {
                     else tempObject.setVelX(0);
                     dDown=false;
                 }
+
+                if(key == KeyEvent.VK_LEFT) {
+                    leftAttack = false;
+                }
+
+                if(key == KeyEvent.VK_RIGHT) {
+                    rightAttack = false;
+                }
+
                 if(key == KeyEvent.VK_SPACE) {
                     //ground level is 460, make jump for key release work plz xx
                 }
