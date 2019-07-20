@@ -7,6 +7,7 @@ import java.util.TimerTask;
 public class KeyInput extends KeyAdapter {
 
     private Handler handler;
+    static boolean aDown=false, dDown=false;
 
     public KeyInput(Handler handler) {
         this.handler = handler;
@@ -21,9 +22,9 @@ public class KeyInput extends KeyAdapter {
             if(tempObject.getID() == ID.Player) {
                 //Key events for the player
 
-                if(key == KeyEvent.VK_A) tempObject.setVelX(-5);
+                if(key == KeyEvent.VK_A) tempObject.setVelX(-5); aDown=true;
 
-                if(key == KeyEvent.VK_D) tempObject.setVelX(+5);
+                if(key == KeyEvent.VK_D) tempObject.setVelX(+5); dDown=true;
 
                 if(key == KeyEvent.VK_SPACE) {
                     tempObject.setVelY(-5);
@@ -56,8 +57,16 @@ public class KeyInput extends KeyAdapter {
             if(tempObject.getID() == ID.Player) {
                 //Key events for the player
 
-                if(key == KeyEvent.VK_A) tempObject.setVelX(0);
-                if(key == KeyEvent.VK_D) tempObject.setVelX(0);
+                if(key == KeyEvent.VK_A) {
+                    if(dDown) tempObject.setVelX(+5);
+                    else tempObject.setVelX(0);
+                    aDown=false;
+                }
+                if(key == KeyEvent.VK_D) {
+                    if(aDown) tempObject.setVelX(-5);
+                    else tempObject.setVelX(0);
+                    dDown=false;
+                }
                 if(key == KeyEvent.VK_SPACE) {
                     //ground level is 460, make jump for key release work plz xx
                 }
