@@ -7,7 +7,7 @@ public abstract class GameObject {
     protected double velX, velY;
 
     public GameObject(int x, int y, ID id) {
-        this.x = y;
+        this.x = x;
         this.y = y;
         this.id = id;
     }
