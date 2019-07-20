@@ -3,6 +3,7 @@ import java.awt.*;
 public class Player extends GameObject {
 
     Handler handler;
+    static boolean canDoubleJump=false, isFalling=false;
 
     public Player(int x, int y, ID id, Handler handler) {
         super(x, y, id);
@@ -34,6 +35,11 @@ public class Player extends GameObject {
                     System.out.println("bang ouch");
                     HUD.HEALTH -= 2;
 
+                }
+            }
+            if(tempObject.getID() == ID.DoubleJumpPowerup) {
+                if(getBounds().intersects(tempObject.getBounds())) {
+                    canDoubleJump=true;
                 }
             }
         }
