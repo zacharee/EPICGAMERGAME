@@ -1,9 +1,9 @@
 import java.awt.*;
 
-public class LightningAttack extends GameObject{
+public class LightningAttack extends RangedAttack{
 
-    public LightningAttack(int x, int y, ID id) {
-        super(x, y, id);
+    public LightningAttack(int dmg, int range) {
+        super(dmg, range);
     }
 
     public void tick() {
