@@ -1,8 +1,8 @@
 import java.awt.*;
 
-public class LighteningAttack extends GameObject{
+public class LightningAttack extends GameObject{
 
-    public LighteningAttack(int x, int y, ID id) {
+    public LightningAttack(int x, int y, ID id) {
         super(x, y, id);
     }
 

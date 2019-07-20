@@ -81,12 +81,12 @@ public class Player extends GameObject {
     }
 
     public void leftAttack() {
-        handler.addObject(new LighteningAttack(x, 400, ID.LighteningAttack));
+        handler.addObject(new LightningAttack(x, 400, ID.LighteningAttack));
         System.out.println("boom to the left");
     }
 
     public void rightAttack() {
-        //handler.addObject(new LighteningAttack(x, 400, ID.LighteningAttack));
+        //handler.addObject(new LightningAttack(x, 400, ID.LightningAttack));
         System.out.println("boom to the right");
     }
 
