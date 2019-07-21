@@ -18,7 +18,7 @@ public class Player extends GameObject {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y-40, 16, 64);
+        return new Rectangle(x, y-40, 32, 64);
     }
 
     public void tick() {

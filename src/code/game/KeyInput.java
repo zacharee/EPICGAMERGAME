@@ -24,12 +24,12 @@ public class KeyInput extends KeyAdapter {
                 //Key events for the player
 
                 if(key == KeyEvent.VK_A) {
-                    tempObject.setVelX(-5);
+                    tempObject.setVelX(-2.5);
                     aDown = true;
                 }
 
                 if(key == KeyEvent.VK_D) {
-                    tempObject.setVelX(+5);
+                    tempObject.setVelX(+2.5);
                     dDown = true;
                 }
 
@@ -80,6 +80,9 @@ public class KeyInput extends KeyAdapter {
                         }, 0, 50);
                     }
                 }
+                if(key == KeyEvent.VK_SHIFT) {
+                    if(!Player.isFalling&&tempObject.getVelX()<5&&tempObject.getVelX()>-5) tempObject.setVelX(tempObject.getVelX()*2);
+                }
             }
         }
 
@@ -96,12 +99,12 @@ public class KeyInput extends KeyAdapter {
                 //Key events for the player
 
                 if(key == KeyEvent.VK_A) {
-                    if(dDown) tempObject.setVelX(+5);
+                    if(dDown) tempObject.setVelX(+2.5);
                     else tempObject.setVelX(0);
                     aDown=false;
                 }
                 if(key == KeyEvent.VK_D) {
-                    if(aDown) tempObject.setVelX(-5);
+                    if(aDown) tempObject.setVelX(-2.5);
                     else tempObject.setVelX(0);
                     dDown=false;
                 }
@@ -116,6 +119,9 @@ public class KeyInput extends KeyAdapter {
 
                 if(key == KeyEvent.VK_SPACE) {
                     //ground level is 460, make jump for key release work plz xx
+                }
+                if(key == KeyEvent.VK_SHIFT) {
+                    if(!Player.isFalling) tempObject.setVelX(tempObject.getVelX()/2);
                 }
             }
         }
