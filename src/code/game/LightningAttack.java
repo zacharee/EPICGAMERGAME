@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class LightningAttack extends RangedAttack{
+public class LightningAttack extends RangedAttack {
 
     public LightningAttack(int dmg, int range) {
         super(dmg, range);
