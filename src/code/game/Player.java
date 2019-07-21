@@ -1,10 +1,15 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Player extends GameObject {
 
     public static int PLAYER_HEALTH = 100;
     Handler handler;
     static boolean canDoubleJump=false, isFalling=false;
+    public BufferedImage playerImage;
 
     public Player(int x, int y, ID id, Handler handler) {
         super(x, y, id);
@@ -13,7 +18,7 @@ public class Player extends GameObject {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 16, 16);
+        return new Rectangle(x, y-40, 16, 64);
     }
 
     public void tick() {
@@ -73,12 +78,14 @@ public class Player extends GameObject {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.YELLOW);
-        g.fillRect(x, y, 16, 16);
-        g.setColor(Color.RED);
-        g.fillRect((x+4), (y+4), 2, 2);
-        g.fillRect((x+10), (y+4), 2, 2);
-        g.fillRect((x+4), (y+10), 8, 2);
+        try {
+            playerImage = ImageIO.read(new File("assets/character.png"));
+        }
+        catch (IOException e) {
+            System.out.println("File not found");
+            System.exit(0);
+        }
+        g.drawImage(playerImage, x, y-40, null);
     }
 
     public void leftAttack() {
