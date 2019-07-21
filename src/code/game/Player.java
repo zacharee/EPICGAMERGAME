@@ -82,7 +82,7 @@ public class Player extends GameObject {
     }
 
     public void leftAttack() {
-        handler.addObject(new LightningAttack(x, 400, ID.LighteningAttack));
+        //handler.addObject(new LightningAttack(x, 400, ID.LighteningAttack));
         System.out.println("boom to the left");
     }
 

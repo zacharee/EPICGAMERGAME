@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class WeakMinion extends GameObject{
+public class WeakMinion extends GameObject {
 
     public static int WEAK_MINION_HEALTH = 100;
     Handler handler;
