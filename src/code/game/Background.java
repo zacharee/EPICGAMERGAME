@@ -35,11 +35,23 @@ public class Background extends GameObject {
         if(b2x<-600) b1x=b2x+1920;
         b1x-=3;
         b2x-=3;
+        for (int i = 0 ; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+                if(tempObject.getID()!=ID.Player) {
+                    tempObject.setX(tempObject.getX()-3);
+                }
+        }
     }
     public void scrollRTL() {
         if(b1x>-10) b2x=b1x-1920;
         if(b2x>-10) b1x=b2x-1920;
         b1x+=3;
         b2x+=3;
+        for (int i = 0 ; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+            if(tempObject.getID()!=ID.Player) {
+                tempObject.setX(tempObject.getX()+3);
+            }
+        }
     }
 }
