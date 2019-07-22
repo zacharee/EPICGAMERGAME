@@ -1,5 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,7 @@ public class Player extends GameObject {
         super(x, y, id);
 
         this.handler = handler;
+        Background.player=this;
     }
 
     public Rectangle getBounds() {
@@ -87,6 +90,12 @@ public class Player extends GameObject {
         }
         if(x>630) x=631;
         if(x<380) x=379;
+        if(this.velX<0) {
+            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+            tx.translate(-playerImage.getWidth(null), 0);
+            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            playerImage = op.filter(playerImage, null);
+        }
         g.drawImage(playerImage, x, y-40, null);
     }
 

@@ -24,12 +24,12 @@ public class KeyInput extends KeyAdapter {
                 //Key events for the player
 
                 if(key == KeyEvent.VK_A) {
-                    tempObject.setVelX(-2.5);
+                    tempObject.setVelX(-3);
                     aDown = true;
                 }
 
                 if(key == KeyEvent.VK_D) {
-                    tempObject.setVelX(+2.5);
+                    tempObject.setVelX(+3);
                     dDown = true;
                 }
 
@@ -99,12 +99,12 @@ public class KeyInput extends KeyAdapter {
                 //Key events for the player
 
                 if(key == KeyEvent.VK_A) {
-                    if(dDown) tempObject.setVelX(+2.5);
+                    if(dDown) tempObject.setVelX(+3);
                     else tempObject.setVelX(0);
                     aDown=false;
                 }
                 if(key == KeyEvent.VK_D) {
-                    if(aDown) tempObject.setVelX(-2.5);
+                    if(aDown) tempObject.setVelX(-3);
                     else tempObject.setVelX(0);
                     dDown=false;
                 }

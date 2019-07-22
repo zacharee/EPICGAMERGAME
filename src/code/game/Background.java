@@ -4,6 +4,7 @@ public class Background extends GameObject {
     public Image backgroundImage, backgroundImage2;
     public int b1x=0, b2x;
     public Handler handler;
+    public static GameObject player;
     public Background(Handler handler) {
         backgroundImage = Toolkit.getDefaultToolkit().createImage("assets/8-bit-background-4.jpg");
         backgroundImage2 = Toolkit.getDefaultToolkit().createImage("assets/8-bit-background-4.jpg");
@@ -33,24 +34,24 @@ public class Background extends GameObject {
     public void scrollLTR() {
         if(b1x<-600) b2x=b1x+1920;
         if(b2x<-600) b1x=b2x+1920;
-        b1x-=3;
-        b2x-=3;
+        b1x-=player.getVelX();
+        b2x-=player.getVelX();
         for (int i = 0 ; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-                if(tempObject.getID()!=ID.Player) {
-                    tempObject.setX(tempObject.getX()-3);
-                }
+            if(tempObject.getID()!=ID.Player) {
+                tempObject.setX(tempObject.getX()-(int) player.getVelX());
+            }
         }
     }
     public void scrollRTL() {
         if(b1x>-10) b2x=b1x-1920;
         if(b2x>-10) b1x=b2x-1920;
-        b1x+=3;
-        b2x+=3;
+        b1x-=player.getVelX();
+        b2x-=player.getVelX();
         for (int i = 0 ; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
             if(tempObject.getID()!=ID.Player) {
-                tempObject.setX(tempObject.getX()+3);
+                tempObject.setX(tempObject.getX()-(int) player.getVelX());
             }
         }
     }
