@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable{
 
         //X currently not needed - Y is weird, need fixing/reworking. ID is important though
         handler.addObject(new Background(handler));
-        handler.addObject(new Ground(0, 0, ID.Ground));
+        //handler.addObject(new Ground(0, 0, ID.Ground));
         handler.addObject(new Player(50, 460, ID.Player, handler));
         handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
@@ -95,8 +95,8 @@ public class Game extends Canvas implements Runnable{
 
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.blue);
-        g.fillRect(0,0, WIDTH, HEIGHT);
+        //g.setColor(Color.blue);
+        //g.fillRect(0,0, WIDTH, HEIGHT);
 
         g.setFont(new Font("Verdanna", 1, 16));
         g.setColor(Color.GREEN);    //FPS counter colour
