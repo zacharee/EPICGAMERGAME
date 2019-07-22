@@ -17,7 +17,7 @@ public class Background extends GameObject {
                 if(tempObject.getX()>630&&tempObject.getVelX()>0) {
                     scrollLTR();
                 }
-                if(tempObject.getX()<430&&tempObject.getVelX()<0) {
+                if(tempObject.getX()<380&&tempObject.getVelX()<0) {
                     scrollRTL();
                 }
             }

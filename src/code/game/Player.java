@@ -85,6 +85,8 @@ public class Player extends GameObject {
             System.out.println("File not found");
             System.exit(0);
         }
+        if(x>630) x=631;
+        if(x<380) x=379;
         g.drawImage(playerImage, x, y-40, null);
     }
 
