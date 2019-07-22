@@ -11,6 +11,7 @@ public abstract class GameObject {
         this.y = y;
         this.id = id;
     }
+    public GameObject() {}
 
     public abstract void tick();
     public abstract void render(Graphics g);

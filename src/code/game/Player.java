@@ -26,6 +26,7 @@ public class Player extends GameObject {
         y += velY;
 
         x = Game.clamp(x, 0, Game.WIDTH - 32);
+        System.out.println(x);
 
         if(PLAYER_HEALTH <= 0) {
             handler.removeObject(this);

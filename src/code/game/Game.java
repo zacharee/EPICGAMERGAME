@@ -20,6 +20,7 @@ public class Game extends Canvas implements Runnable{
         hud = new HUD();
 
         //X currently not needed - Y is weird, need fixing/reworking. ID is important though
+        handler.addObject(new Background(handler));
         handler.addObject(new Ground(0, 0, ID.Ground));
         handler.addObject(new Player(50, 460, ID.Player, handler));
         handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
