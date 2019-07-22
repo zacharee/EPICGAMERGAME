@@ -25,14 +25,21 @@ public class Background extends GameObject {
     }
     public void render(Graphics g) {
         g.drawImage(backgroundImage, b1x, -400, null);
+        g.drawImage(backgroundImage2, b2x, -400, null);
     }
     public Rectangle getBounds() {
         return null;
     }
     public void scrollLTR() {
-        b1x--;
+        if(b1x<-600) b2x=b1x+1920;
+        if(b2x<-600) b1x=b2x+1920;
+        b1x-=3;
+        b2x-=3;
     }
     public void scrollRTL() {
-        b1x++;
+        if(b1x>-10) b2x=b1x-1920;
+        if(b2x>-10) b1x=b2x-1920;
+        b1x+=3;
+        b2x+=3;
     }
 }

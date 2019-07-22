@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable{
         handler.addObject(new Background(handler));
         //handler.addObject(new Ground(0, 0, ID.Ground));
         handler.addObject(new Player(50, 460, ID.Player, handler));
-        handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
+        //handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
         handler.addObject(new HealthPowerUp(200, 450, ID.HealthPowerup));
         handler.addObject(new HealthPowerUp(WIDTH - 200, 425, ID.HealthPowerup));
@@ -95,14 +95,12 @@ public class Game extends Canvas implements Runnable{
 
         Graphics g = bs.getDrawGraphics();
 
-        //g.setColor(Color.blue);
-        //g.fillRect(0,0, WIDTH, HEIGHT);
+        handler.render(g);
 
         g.setFont(new Font("Verdanna", 1, 16));
         g.setColor(Color.GREEN);    //FPS counter colour
         g.drawString( fps+" FPS", WIDTH-100,40);
 
-        handler.render(g);
 
         hud.render(g);
 
