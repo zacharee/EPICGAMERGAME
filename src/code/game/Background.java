@@ -14,7 +14,10 @@ public class Background extends GameObject {
         for (int i = 0 ; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
             if(tempObject.getID()==ID.Player) {
-                if(tempObject.getX()<630&&tempObject.getVelX()>0) {
+                if(tempObject.getX()>630&&tempObject.getVelX()>0) {
+                    scrollLTR();
+                }
+                if(tempObject.getX()<430&&tempObject.getVelX()<0) {
                     scrollRTL();
                 }
             }
@@ -26,7 +29,10 @@ public class Background extends GameObject {
     public Rectangle getBounds() {
         return null;
     }
-    public void scrollRTL() {
+    public void scrollLTR() {
         b1x--;
+    }
+    public void scrollRTL() {
+        b1x++;
     }
 }
