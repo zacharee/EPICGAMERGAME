@@ -21,9 +21,9 @@ public class Game extends Canvas implements Runnable{
 
         //X currently not needed - Y is weird, need fixing/reworking. ID is important though
         handler.addObject(new Background(handler));
-        //handler.addObject(new Ground(0, 0, ID.Ground));
+        handler.addObject(new Platform(690, 350, ID.Platform, "assets/GrassPlatform.png"));
         handler.addObject(new Player(50, 460, ID.Player, handler));
-        //handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
+        handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
         handler.addObject(new HealthPowerUp(200, 450, ID.HealthPowerup));
         handler.addObject(new HealthPowerUp(WIDTH - 200, 425, ID.HealthPowerup));

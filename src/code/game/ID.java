@@ -5,5 +5,6 @@ public enum ID {
     Ground(),
     DoubleJumpPowerup(),
     LighteningAttack(),
-    HealthPowerup();
+    HealthPowerup(),
+    Platform();
 }

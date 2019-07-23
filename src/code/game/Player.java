@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Player extends GameObject {
 
-    public static int PLAYER_HEALTH = 100;
+    public static int PLAYER_HEALTH = 100, PLAYER_WIDTH=22, PLAYER_HEIGHT=54;
     Handler handler;
     static boolean canDoubleJump=false, isFalling=false;
     public BufferedImage playerImage;
@@ -21,7 +21,7 @@ public class Player extends GameObject {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y-40, 32, 64);
+        return new Rectangle(x, y-PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT);
     }
 
     public void tick() {
@@ -77,6 +77,16 @@ public class Player extends GameObject {
                     handler.removeObject(tempObject);
                 }
             }
+            if(tempObject.getID()==ID.Platform) {
+                Platform platform = (Platform) tempObject;
+                if(getBounds().intersects(platform.getBounds())) {
+                    if(getX()<platform.getX()&&getY()>platform.getY()) setVelX(0);
+                    if(getX()>platform.getX()+118&&getY()>platform.getY()) setVelX(0);
+                    if(getY()>platform.getY()+16) setVelY(1);
+                    if(getY()<platform.getY()+16) {setVelY(0);setY(platform.getY());}
+                }
+                System.out.println(getY());
+            }
         }
     }
 
@@ -95,8 +105,12 @@ public class Player extends GameObject {
             tx.translate(-playerImage.getWidth(null), 0);
             AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
             playerImage = op.filter(playerImage, null);
+            g.drawImage(playerImage, x, y-PLAYER_HEIGHT, null);
         }
-        g.drawImage(playerImage, x, y-40, null);
+        else {
+            g.drawImage(playerImage, x, y-PLAYER_HEIGHT, null);
+        }
+        //g.fillRect(x, y-PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT);
     }
 
     public void leftAttack() {
