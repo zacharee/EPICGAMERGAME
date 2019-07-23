@@ -5,6 +5,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.TimerTask;
 
 public class Player extends GameObject {
 
@@ -80,12 +81,16 @@ public class Player extends GameObject {
             if(tempObject.getID()==ID.Platform) {
                 Platform platform = (Platform) tempObject;
                 if(getBounds().intersects(platform.getBounds())) {
-                    if(getX()<platform.getX()&&getY()>platform.getY()) setVelX(0);
-                    if(getX()>platform.getX()+118&&getY()>platform.getY()) setVelX(0);
+                    if(getX()<platform.getX()&&getY()>platform.getY()+1) setVelX(0);
+                    if(getX()>platform.getX()+118&&getY()>platform.getY()+1) setVelX(0);
                     if(getY()>platform.getY()+16) setVelY(1);
                     if(getY()<platform.getY()+16) {setVelY(0);setY(platform.getY());}
                 }
-                System.out.println(getY());
+            }
+            if(tempObject.isStandable&&getBounds().intersects(tempObject.getBounds())) {
+                isFalling=false;
+                KeyInput.doubleJump=false;
+                KeyInput.timer.cancel();
             }
         }
     }

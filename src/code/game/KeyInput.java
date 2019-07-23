@@ -8,7 +8,7 @@ public class KeyInput extends KeyAdapter {
 
     private Handler handler;
     public static boolean aDown=false, dDown=false, doubleJump=false, rightAttack = false, leftAttack = false;
-    private Timer timer = new Timer();
+    public static Timer timer = new Timer();
 
     public KeyInput(Handler handler) {
         this.handler = handler;
@@ -42,43 +42,7 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
-                    if(Player.canDoubleJump&&Player.isFalling&&!doubleJump) {
-                        doubleJump=true;
-                        timer.cancel();
-                        Player.isFalling = true;
-                        tempObject.setVelY(-5);
-                        timer = new Timer();
-                        timer.scheduleAtFixedRate(new TimerTask() {
-                            @Override
-                            public void run() {
-                                if (tempObject.getY() > 460) {
-                                    tempObject.setVelY(0);
-                                    tempObject.setY(460);
-                                    Player.isFalling = false;
-                                    doubleJump=false;
-                                    timer.cancel();
-                                }
-                                tempObject.setVelY(tempObject.getVelY() + 0.5);
-                            }
-                        }, 0, 50);
-                    }
-                    else if(!Player.isFalling) {
-                        Player.isFalling = true;
-                        tempObject.setVelY(-5);
-                        timer = new Timer();
-                        timer.scheduleAtFixedRate(new TimerTask() {
-                            @Override
-                            public void run() {
-                                if (tempObject.getY() > 460) {
-                                    tempObject.setVelY(0);
-                                    tempObject.setY(460);
-                                    Player.isFalling = false;
-                                    timer.cancel();
-                                }
-                                tempObject.setVelY(tempObject.getVelY() + 0.5);
-                            }
-                        }, 0, 50);
-                    }
+                    jump(tempObject);
                 }
                 if(key == KeyEvent.VK_SHIFT) {
                     if(!Player.isFalling&&tempObject.getVelX()<5&&tempObject.getVelX()>-5) tempObject.setVelX(tempObject.getVelX()*2);
@@ -124,6 +88,46 @@ public class KeyInput extends KeyAdapter {
                     if(!Player.isFalling) tempObject.setVelX(tempObject.getVelX()/2);
                 }
             }
+        }
+    }
+
+    public void jump(GameObject tempObject) {
+        if(Player.canDoubleJump&&Player.isFalling&&!doubleJump) {
+            doubleJump=true;
+            timer.cancel();
+            Player.isFalling = true;
+            tempObject.setVelY(-5);
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (tempObject.getY() > 460) {
+                        tempObject.setVelY(0);
+                        tempObject.setY(460);
+                        Player.isFalling = false;
+                        doubleJump=false;
+                        timer.cancel();
+                    }
+                    tempObject.setVelY(tempObject.getVelY() + 0.5);
+                }
+            }, 0, 50);
+        }
+        else if(!Player.isFalling) {
+            Player.isFalling = true;
+            tempObject.setVelY(-5);
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (tempObject.getY() > 460) {
+                        tempObject.setVelY(0);
+                        tempObject.setY(460);
+                        Player.isFalling = false;
+                        timer.cancel();
+                    }
+                    tempObject.setVelY(tempObject.getVelY() + 0.5);
+                }
+            }, 0, 50);
         }
     }
 }

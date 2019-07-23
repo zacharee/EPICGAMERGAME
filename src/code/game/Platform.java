@@ -9,6 +9,7 @@ public class Platform extends GameObject {
         this.y=y;
         this.id=id;
         texture = Toolkit.getDefaultToolkit().createImage(textureLocation);
+        isStandable=true;
     }
     public void tick() {
 

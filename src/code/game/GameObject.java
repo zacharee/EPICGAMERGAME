@@ -5,6 +5,7 @@ public abstract class GameObject {
     protected int x, y;
     protected ID id;
     protected double velX, velY;
+    public boolean isStandable=false;
 
     public GameObject(int x, int y, ID id) {
         this.x = x;
