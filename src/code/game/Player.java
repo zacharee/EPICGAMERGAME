@@ -37,10 +37,14 @@ public class Player extends GameObject {
 
         if(KeyInput.leftAttack) {
             leftAttack();
+        } else {
+            handler.removeAttack(new LightningAttack(x, 425, 100, 500, ID.LighteningAttack));
         }
 
         if(KeyInput.rightAttack) {
             rightAttack();
+        }else {
+            handler.removeAttack(new LightningAttack(x, 425, 100, 500, ID.LighteningAttack));
         }
 
         collision();
@@ -115,16 +119,15 @@ public class Player extends GameObject {
         else {
             g.drawImage(playerImage, x, y-PLAYER_HEIGHT, null);
         }
-        //g.fillRect(x, y-PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT);
     }
 
     public void leftAttack() {
-        //handler.addObject(new LightningAttack(x, 400, ID.LighteningAttack));
+        handler.addAttack(new LightningAttack(x, 425, 100, 500, ID.LighteningAttack));
         System.out.println("boom to the left");
     }
 
     public void rightAttack() {
-        //handler.addObject(new LightningAttack(x, 400, ID.LightningAttack));
+        handler.addAttack(new LightningAttack(x, 425, 100, 500, ID.LighteningAttack));
         System.out.println("boom to the right");
     }
 

@@ -6,5 +6,6 @@ public enum ID {
     DoubleJumpPowerup(),
     LighteningAttack(),
     HealthPowerup(),
-    Platform();
+    Platform(),
+    MeleeAttack(),
 }

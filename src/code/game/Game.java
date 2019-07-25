@@ -1,6 +1,10 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
+//TODO
+// fix falling through floor
+// fix it so that you can't go left further than where you spawned
+
 public class Game extends Canvas implements Runnable{
 
     public static final int WIDTH = 1280, HEIGHT = 720;
@@ -26,8 +30,9 @@ public class Game extends Canvas implements Runnable{
         handler.addObject(new Player(50, 460, ID.Player, handler));
         handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
-        handler.addObject(new HealthPowerUp(200, 450, ID.HealthPowerup));
-        handler.addObject(new HealthPowerUp(WIDTH - 200, 425, ID.HealthPowerup));
+        for(int i = 600; i < 5601; i = i + 500) {
+            handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));
+        }
     }
 
     public synchronized void start() {
