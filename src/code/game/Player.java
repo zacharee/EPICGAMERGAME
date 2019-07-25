@@ -128,6 +128,9 @@ public class Player extends GameObject {
         System.out.println("boom to the right");
     }
 
+    //TODO Not recognising platform as standable object: Collision not being detected
+
+
     public GameObject isStanding() {
         for(int i=0; i<handler.object.size(); i++) {
             GameObject platform = handler.object.get(i);
