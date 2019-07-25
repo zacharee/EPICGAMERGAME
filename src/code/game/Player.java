@@ -5,14 +5,16 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class Player extends GameObject {
 
     public static int PLAYER_HEALTH = 100, PLAYER_WIDTH=22, PLAYER_HEIGHT=54;
     Handler handler;
-    static boolean canDoubleJump=false, isFalling=false;
+    static boolean canDoubleJump=false, isFalling=false, doubleJump=false;
     public BufferedImage playerImage;
+    public static Timer timer;
 
     public Player(int x, int y, ID id, Handler handler) {
         super(x, y, id);
@@ -91,11 +93,6 @@ public class Player extends GameObject {
                     if(getY()<platform.getY()+16) {setVelY(0);setY(platform.getY());}
                 }
             }
-            if(tempObject.isStandable&&getBounds().intersects(tempObject.getBounds())) {
-                isFalling=false;
-                KeyInput.doubleJump=false;
-                KeyInput.timer.cancel();
-            }
         }
     }
 
@@ -131,4 +128,58 @@ public class Player extends GameObject {
         System.out.println("boom to the right");
     }
 
+    public GameObject isStanding() {
+        for(int i=0; i<handler.object.size(); i++) {
+            GameObject platform = handler.object.get(i);
+            if(platform.isStandable&&getBounds().intersects(platform.getBounds())) {
+                System.out.println("true");
+                return platform;
+            }
+        }
+        return null;
+    }
+    public void jump() {
+        if(isFalling&&canDoubleJump&&!doubleJump) {
+            doubleJump=true;
+            timer.cancel();
+            timer = new Timer();
+            setVelY(-5);
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    GameObject temp = isStanding();
+                    if(temp!=null) {
+                        isFalling=false;
+                        doubleJump=false;
+                        setVelY(0);
+                        setY(temp.getY());
+                        timer.cancel();
+                    }
+                    else {
+                        setVelY(getVelY()+0.5);
+                    }
+                }
+
+            }, 0, 50);
+        }
+        else if(!isFalling) {
+            isFalling=true;
+            setVelY(-5);
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    GameObject temp = isStanding();
+                    if(temp!=null) {
+                        isFalling=false;
+                        setVelY(0);
+                        setY(temp.getY());
+                        timer.cancel();
+                    }
+                    else {
+                        setVelY(getVelY()+0.5);
+                    }
+                }
+            }, 0, 50);
+        }
+    }
 }

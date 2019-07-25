@@ -8,7 +8,7 @@ public class Ground extends GameObject {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 720, 0);
+        return new Rectangle(x, y, 720, 3);
     }
 
     public void tick() {
