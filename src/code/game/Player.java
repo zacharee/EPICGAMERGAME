@@ -5,13 +5,16 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player extends GameObject {
 
     public static int PLAYER_HEALTH = 100, PLAYER_WIDTH=22, PLAYER_HEIGHT=54;
     Handler handler;
-    public static boolean canDoubleJump=false, isFalling=false, rightAttackFade = false, leftAttackFade = false;
+    public static boolean canDoubleJump=false, isFalling=false, doubleJump=false, rightAttackFade = false, leftAttackFade = false;
     public BufferedImage playerImage;
+    private Timer timer;
 
     public Player(int x, int y, ID id, Handler handler) {
         super(x, y, id);
@@ -74,19 +77,14 @@ public class Player extends GameObject {
                     handler.removeObject(tempObject);
                 }
             }
-            if(tempObject.getID()==ID.Platform) {
-                Platform platform = (Platform) tempObject;
-                if(getBounds().intersects(platform.getBounds())) {
-                    if(getX()<platform.getX()&&getY()>platform.getY()+1) setVelX(0);
-                    if(getX()>platform.getX()+118&&getY()>platform.getY()+1) setVelX(0);
-                    if(getY()>platform.getY()+16) setVelY(1);
-                    if(getY()<platform.getY()+16) {setVelY(0);setY(platform.getY());}
+            if(tempObject.isStandable) {
+                if(getBounds().intersects(tempObject.getBounds())) {
+                    System.out.println("tru");
+                    if(getY()<tempObject.getY()+16) {setVelY(0);setY(tempObject.getY());isFalling=false;}
+                    else if(getX()<tempObject.getX()&&getY()>tempObject.getY()+1) setVelX(0);
+                    else if(getX()>tempObject.getX()+118&&getY()>tempObject.getY()+1) setVelX(0);
+                    else if(getY()>tempObject.getY()+16) setVelY(1);
                 }
-            }
-            if(tempObject.isStandable&&getBounds().intersects(tempObject.getBounds())) {
-                isFalling=false;
-                KeyInput.doubleJump=false;
-                KeyInput.timer.cancel();
             }
             if(tempObject.getID() == ID.LighteningAttack) {
                 if (handler.object.get(4).getBounds().intersects(tempObject.getBounds())) {
@@ -118,6 +116,56 @@ public class Player extends GameObject {
             g.drawImage(playerImage, x, y - PLAYER_HEIGHT, null);
         } else {
             g.drawImage(playerImage, x, y - PLAYER_HEIGHT, null);
+        }
+    }
+
+    public GameObject isStanding() {
+        for(int i=0; i<handler.object.size(); i++) {
+            GameObject platform = handler.object.get(i);
+            if(platform.isStandable&&getBounds().intersects(platform.getBounds())) {
+                System.out.println("true");
+                return platform;
+            }
+        }
+        return null;
+    }
+
+    public void jump() {
+        if(isFalling&&canDoubleJump&&!doubleJump) {
+            doubleJump=true;
+            timer.cancel();
+            timer = new Timer();
+            setVelY(-5);
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    if(!isFalling) {
+                        doubleJump=false;
+                        setVelY(0);
+                        timer.cancel();
+                    }
+                    else {
+                        setVelY(getVelY()+0.5);
+                    }
+                }
+
+            }, 0, 50);
+        }
+        else if(!isFalling) {
+            isFalling=true;
+            setVelY(-5);
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if(!isFalling) {
+                        setVelY(0);
+                        timer.cancel();
+                    }
+                    else {
+                        setVelY(getVelY()+0.5);
+                    }
+                }
+            }, 0, 50);
         }
     }
 
