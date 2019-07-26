@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable{
         handler.addObject(new Ground(0, 460, ID.Ground));
         handler.addObject(new Platform(690, 350, ID.Platform, "assets/GrassPlatform.png"));
         handler.addObject(new Player(50, 460, ID.Player, handler));
-        handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
+        handler.addObject(new WeakMinion(WIDTH-50, 420, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
         for(int i = 600; i < 5601; i = i + 500) {
             handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));

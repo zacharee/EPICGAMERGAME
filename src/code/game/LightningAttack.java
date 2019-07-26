@@ -1,21 +1,26 @@
 import java.awt.*;
 
-public class LightningAttack extends RangedAttack {
+public class LightningAttack extends GameObject {
 
-    public LightningAttack(int x, int y, int dmg, int range, ID id) {
-        super(x, y, dmg, range, id);
+    Handler handler;
+
+    public LightningAttack(int x, int y, ID id, Handler handler) {
+        super(x, y, id);
+        this.handler = handler;
     }
 
     public void tick() {
+
     }
 
     public void render(Graphics g) {
 
         g.setColor(Color.blue);
-        g.fillRect(x, y, 1000, 5);
+        g.fillRect(x, y, 400, 5);
     }
 
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle(x, y, 400, 24);
     }
+
 }

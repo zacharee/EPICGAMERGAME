@@ -7,7 +7,7 @@ import java.util.TimerTask;
 public class KeyInput extends KeyAdapter {
 
     private Handler handler;
-    public static boolean aDown=false, dDown=false, doubleJump=false, rightAttack = false, leftAttack = false;
+    public static boolean aDown=false, dDown=false, doubleJump=false, rightAttack = false, leftAttack = false, rightDown = false, leftDown = false;
     public static Timer timer = new Timer();
 
     public KeyInput(Handler handler) {
@@ -34,11 +34,9 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if(key == KeyEvent.VK_LEFT) {
-                    leftAttack = true;
                 }
 
                 if(key == KeyEvent.VK_RIGHT) {
-                    rightAttack = true;
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
@@ -74,11 +72,11 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if(key == KeyEvent.VK_LEFT) {
-                    leftAttack = false;
+                    leftAttackCaller();
                 }
 
                 if(key == KeyEvent.VK_RIGHT) {
-                    rightAttack = false;
+                    rightAttackCaller();
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
@@ -129,5 +127,14 @@ public class KeyInput extends KeyAdapter {
                 }
             }, 0, 50);
         }
+    }
+    public void leftAttackCaller() {
+        System.out.println("left");
+        leftAttack = true;
+    }
+
+    public void rightAttackCaller() {
+        System.out.println("right");
+        rightAttack = true;
     }
 }

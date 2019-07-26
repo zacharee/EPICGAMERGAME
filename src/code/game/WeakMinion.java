@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class    WeakMinion extends GameObject {
+public class WeakMinion extends GameObject {
 
     public static int WEAK_MINION_HEALTH = 100;
     Handler handler;
@@ -26,6 +26,7 @@ public class    WeakMinion extends GameObject {
         if(y <= 0 || y >= Game.HEIGHT - 140) velY *= -1;
 
         if(x <= 0 || x >= Game.WIDTH - 42) velX *= -1;
+
     }
 
     public void render(Graphics g) {
