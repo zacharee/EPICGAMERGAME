@@ -4,6 +4,7 @@ import java.awt.image.BufferStrategy;
 //TODO
 // fix falling through floor
 // fix it so that you can't go left further than where you spawned
+// make lighting effect disappear after shooting (line 129 and 136 - no idea why it's not working)
 
 public class Game extends Canvas implements Runnable{
 
