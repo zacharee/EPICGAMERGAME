@@ -32,19 +32,18 @@ public class Player extends GameObject {
         x = Game.clamp(x, 0, Game.WIDTH - 32);
 
         if(PLAYER_HEALTH <= 0) {
+            System.out.println("You died!");
             handler.removeObject(this);
         }
 
-        if(KeyInput.leftAttack) {
-            leftAttack();
-        } else {
-            handler.removeAttack(new LightningAttack(x, 425, 100, 500, ID.LighteningAttack));
+        if(KeyInput.rightAttack) {
+            System.out.println("Right attacking");
+            rightAttack();
         }
 
-        if(KeyInput.rightAttack) {
-            rightAttack();
-        }else {
-            handler.removeAttack(new LightningAttack(x, 425, 100, 500, ID.LighteningAttack));
+        if(KeyInput.leftAttack) {
+            System.out.println("left attacking");
+            leftAttack();
         }
 
         collision();
@@ -54,19 +53,13 @@ public class Player extends GameObject {
         for(int i = 0; i < handler.object.size(); i++ ) {
 
             GameObject tempObject = handler.object.get(i);
-
             if(tempObject.getID() == ID.WeakMinion) {
                 if(getBounds().intersects(tempObject.getBounds())) {
                     PLAYER_HEALTH -= 2;
                     WeakMinion.WEAK_MINION_HEALTH -=2;
-                    if(PLAYER_HEALTH == 0) {
-                        System.out.println("You died to a weak minion!");
-                        handler.removeObject(this);
-                    }
                     if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
-                        handler.removeObject(tempObject);
-                        Player.PLAYER_HEALTH += 25;
-                        System.out.println("You killed a weak minion - nice!");
+                        System.out.println("You killed a weak minion");
+                        handler.object.remove(tempObject);
                     }
                 }
             }
@@ -96,39 +89,50 @@ public class Player extends GameObject {
                 KeyInput.doubleJump=false;
                 KeyInput.timer.cancel();
             }
+            if(tempObject.getID() == ID.LighteningAttack) {
+                if (handler.object.get(4).getBounds().intersects(tempObject.getBounds())) {
+                    System.out.println("Hit!");
+                    WeakMinion.WEAK_MINION_HEALTH -= 2;
+                    if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
+                        System.out.println("You killed a weak minion");
+                        handler.object.remove(handler.object.get(4));
+                    }
+                }
+            }
         }
     }
 
     public void render(Graphics g) {
         try {
             playerImage = ImageIO.read(new File("assets/character.png"));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("File not found");
             System.exit(0);
         }
-        if(x>630) x=631;
-        if(x<380) x=379;
-        if(this.velX<0) {
+        if (x > 630) x = 631;
+        if (x < 380) x = 379;
+        if (this.velX < 0) {
             AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
             tx.translate(-playerImage.getWidth(null), 0);
             AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
             playerImage = op.filter(playerImage, null);
-            g.drawImage(playerImage, x, y-PLAYER_HEIGHT, null);
-        }
-        else {
-            g.drawImage(playerImage, x, y-PLAYER_HEIGHT, null);
+            g.drawImage(playerImage, x, y - PLAYER_HEIGHT, null);
+        } else {
+            g.drawImage(playerImage, x, y - PLAYER_HEIGHT, null);
         }
     }
 
     public void leftAttack() {
-        handler.addAttack(new LightningAttack(x, 425, 100, 500, ID.LighteningAttack));
-        System.out.println("boom to the left");
+        handler.addObject(new LightningAttack(x, y - 24, ID.LighteningAttack, handler));
+        KeyInput.leftAttack = false;
+        //remove lightning attack - not working blyat
+        handler.object.remove(ID.LighteningAttack);
     }
 
     public void rightAttack() {
-        handler.addAttack(new LightningAttack(x, 425, 100, 500, ID.LighteningAttack));
-        System.out.println("boom to the right");
+        handler.addObject(new LightningAttack(x, y - 24, ID.LighteningAttack, handler));
+        KeyInput.rightAttack = false;
+        //remove lightning attack - not working blyat
+        handler.object.remove(ID.LighteningAttack);
     }
-
 }
