@@ -4,7 +4,7 @@ import java.awt.image.BufferStrategy;
 //TODO
 // fix falling through floor
 // fix it so that you can't go left further than where you spawned
-// Fix lightning not always disappearing when held down and kills
+// Fix lightning not always disappearing when held down for too long
 
 public class Game extends Canvas implements Runnable{
 
