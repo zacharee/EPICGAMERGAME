@@ -1,6 +1,5 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,9 +33,11 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if(key == KeyEvent.VK_LEFT) {
+                    leftAttackCaller();
                 }
 
                 if(key == KeyEvent.VK_RIGHT) {
+                    rightAttackCaller();
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
@@ -72,11 +73,11 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if(key == KeyEvent.VK_LEFT) {
-                    leftAttackCaller();
+                    Player.leftAttackFade = true;
                 }
 
                 if(key == KeyEvent.VK_RIGHT) {
-                    rightAttackCaller();
+                    Player.rightAttackFade = true;
                 }
 
                 if(key == KeyEvent.VK_SPACE) {

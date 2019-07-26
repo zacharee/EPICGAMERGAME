@@ -5,13 +5,12 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.TimerTask;
 
 public class Player extends GameObject {
 
     public static int PLAYER_HEALTH = 100, PLAYER_WIDTH=22, PLAYER_HEIGHT=54;
     Handler handler;
-    static boolean canDoubleJump=false, isFalling=false;
+    public static boolean canDoubleJump=false, isFalling=false, rightAttackFade = false, leftAttackFade = false;
     public BufferedImage playerImage;
 
     public Player(int x, int y, ID id, Handler handler) {
@@ -123,16 +122,12 @@ public class Player extends GameObject {
     }
 
     public void leftAttack() {
-        handler.addObject(new LightningAttack(x, y - 24, ID.LighteningAttack, handler));
+        handler.addObject(new LightningAttack(x-LightningAttack.range, y - 24, ID.LighteningAttack, handler));
         KeyInput.leftAttack = false;
-        //remove lightning attack - not working blyat
-        handler.object.remove(ID.LighteningAttack);
     }
 
     public void rightAttack() {
         handler.addObject(new LightningAttack(x, y - 24, ID.LighteningAttack, handler));
         KeyInput.rightAttack = false;
-        //remove lightning attack - not working blyat
-        handler.object.remove(ID.LighteningAttack);
     }
 }
