@@ -4,7 +4,7 @@ import java.awt.image.BufferStrategy;
 //TODO
 // fix falling through floor
 // fix it so that you can't go left further than where you spawned
-// Fix lightning not always disappearing when held down for too long
+// Fix lightning not always disappearing when held down for too long - extra lighting bolts are being shot but not removed when button is held (I think)
 
 public class Game extends Canvas implements Runnable{
 

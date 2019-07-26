@@ -33,11 +33,11 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if(key == KeyEvent.VK_LEFT) {
-                    leftAttackCaller();
+                    leftAttack = true;
                 }
 
                 if(key == KeyEvent.VK_RIGHT) {
-                    rightAttackCaller();
+                    rightAttack = true;
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
@@ -128,14 +128,5 @@ public class KeyInput extends KeyAdapter {
                 }
             }, 0, 50);
         }
-    }
-    public void leftAttackCaller() {
-        System.out.println("left");
-        leftAttack = true;
-    }
-
-    public void rightAttackCaller() {
-        System.out.println("right");
-        rightAttack = true;
     }
 }

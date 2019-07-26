@@ -29,7 +29,9 @@ public class LightningAttack extends GameObject {
     }
 
     public void fade() {
-        handler.object.remove(this);
+        for(int i = 0; i < handler.object.size(); i++) {
+            handler.object.remove(this);
+        }
         Player.rightAttackFade = false;
         Player.leftAttackFade = false;
     }
