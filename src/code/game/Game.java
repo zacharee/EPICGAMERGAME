@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
 public class Game extends Canvas implements Runnable{
 
     public static final int WIDTH = 1280, HEIGHT = 720;
+    public static Player player;
 
     private Thread thread;
     private boolean running = false;
@@ -23,12 +24,14 @@ public class Game extends Canvas implements Runnable{
 
         hud = new HUD();
 
+        player = new Player(50, 460, ID.Player, handler);
+
         //X currently not needed - Y is weird, need fixing/reworking. ID is important though
         handler.addObject(new Background(handler));
         handler.addObject(new Ground(0, 460, ID.Ground));
         handler.addObject(new Platform(690, 350, ID.Platform, "assets/GrassPlatform.png"));
-        handler.addObject(new Player(50, 460, ID.Player, handler));
-        handler.addObject(new WeakMinion(WIDTH-50, 420, ID.WeakMinion));
+        handler.addObject(player);
+        handler.addObject(new WeakMinion(WIDTH-50, 452, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
         for(int i = 600; i < 5601; i = i + 500) {
             handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));

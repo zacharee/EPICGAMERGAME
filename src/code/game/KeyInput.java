@@ -40,7 +40,7 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
-                    jump(tempObject);
+                    Game.player.jump();
                 }
                 if(key == KeyEvent.VK_SHIFT) {
                     if(!Player.isFalling&&tempObject.getVelX()<5&&tempObject.getVelX()>-5) tempObject.setVelX(tempObject.getVelX()*2);
