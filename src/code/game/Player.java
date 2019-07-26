@@ -12,7 +12,7 @@ public class Player extends GameObject {
 
     public static int PLAYER_HEALTH = 100, PLAYER_WIDTH=22, PLAYER_HEIGHT=54;
     Handler handler;
-    public static boolean canDoubleJump=false, isFalling=false, doubleJump=false, rightAttackFade = false, leftAttackFade = false;
+    public static boolean canDoubleJump=false, isFalling=false, isStanding=true, doubleJump=false, rightAttackFade = false, leftAttackFade = false;
     public BufferedImage playerImage;
     private Timer timer;
 
@@ -79,11 +79,10 @@ public class Player extends GameObject {
             }
             if(tempObject.isStandable) {
                 if(getBounds().intersects(tempObject.getBounds())) {
-                    System.out.println("tru");
                     if(getY()<tempObject.getY()+16) {setVelY(0);setY(tempObject.getY());isFalling=false;}
                     else if(getX()<tempObject.getX()&&getY()>tempObject.getY()+1) setVelX(0);
                     else if(getX()>tempObject.getX()+118&&getY()>tempObject.getY()+1) setVelX(0);
-                    else if(getY()>tempObject.getY()+16) setVelY(1);
+                    else if(getY()>tempObject.getY()+16) setVelY(getVelY()*-1);
                 }
             }
             if(tempObject.getID() == ID.LighteningAttack) {
@@ -97,6 +96,25 @@ public class Player extends GameObject {
                 }
             }
         }
+        if(!isStanding&&!isFalling) {
+            isFalling=true;
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if(!isFalling) {
+                        doubleJump=false;
+                        isStanding=true;
+                        setVelY(0);
+                        timer.cancel();
+                    }
+                    else {
+                        setVelY(getVelY()+0.5);
+                    }
+                }
+            }, 0, 50);
+        }
+
     }
 
     public void render(Graphics g) {
@@ -119,16 +137,6 @@ public class Player extends GameObject {
         }
     }
 
-    public GameObject isStanding() {
-        for(int i=0; i<handler.object.size(); i++) {
-            GameObject platform = handler.object.get(i);
-            if(platform.isStandable&&getBounds().intersects(platform.getBounds())) {
-                System.out.println("true");
-                return platform;
-            }
-        }
-        return null;
-    }
 
     public void jump() {
         if(isFalling&&canDoubleJump&&!doubleJump) {
@@ -139,6 +147,7 @@ public class Player extends GameObject {
             timer.scheduleAtFixedRate(new TimerTask() {
                 public void run() {
                     if(!isFalling) {
+                        isStanding=true;
                         doubleJump=false;
                         setVelY(0);
                         timer.cancel();
@@ -158,6 +167,7 @@ public class Player extends GameObject {
                 @Override
                 public void run() {
                     if(!isFalling) {
+                        isStanding=true;
                         setVelY(0);
                         timer.cancel();
                     }
