@@ -4,6 +4,7 @@ public class LightningAttack extends GameObject {
 
     Handler handler;
     public static int range = 250;
+    public static int lightningDamage = 2;
 
     public LightningAttack(int x, int y, ID id, Handler handler) {
         super(x, y, id);

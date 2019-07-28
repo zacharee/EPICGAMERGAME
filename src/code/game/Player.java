@@ -15,6 +15,7 @@ public class Player extends GameObject {
     public static boolean canDoubleJump=false, isFalling=false, isStanding=true, doubleJump=false, rightAttackFade = false, leftAttackFade = false;
     public BufferedImage playerImage;
     private Timer timer;
+    public static boolean canLightningAttack = false, canSwordAttack = false;
 
     public Player(int x, int y, ID id, Handler handler) {
         super(x, y, id);
@@ -39,12 +40,10 @@ public class Player extends GameObject {
         }
 
         if(KeyInput.rightAttack) {
-            System.out.println("Right attacking");
             rightAttack();
         }
 
         if(KeyInput.leftAttack) {
-            System.out.println("left attacking");
             leftAttack();
         }
 
@@ -88,7 +87,7 @@ public class Player extends GameObject {
             if(tempObject.getID() == ID.LightningAttack) {
                 if (handler.object.get(4).getBounds().intersects(tempObject.getBounds())) {
                     System.out.println("Hit!");
-                    WeakMinion.WEAK_MINION_HEALTH -= 2;
+                    WeakMinion.WEAK_MINION_HEALTH -= LightningAttack.lightningDamage;
                     if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
                         System.out.println("You killed a weak minion");
                         handler.object.remove(handler.object.get(4));
@@ -98,7 +97,7 @@ public class Player extends GameObject {
             if(tempObject.getID() == ID.SwordAttack) {
                 if (handler.object.get(4).getBounds().intersects(tempObject.getBounds())) {
                     System.out.println("Hit!");
-                    WeakMinion.WEAK_MINION_HEALTH -= 20;
+                    WeakMinion.WEAK_MINION_HEALTH -= SwordAttack.swordDamage;
                     if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
                         System.out.println("You killed a weak minion");
                         handler.object.remove(handler.object.get(4));
@@ -186,14 +185,24 @@ public class Player extends GameObject {
         }
     }
     public void leftAttack() {
-        handler.addObject(new SwordAttack(x-SwordAttack.range, y - 24, ID.SwordAttack, handler));
-        //handler.addObject(new LightningAttack(x-LightningAttack.range, y - 24, ID.LightningAttack, handler));
+        if(canLightningAttack) {
+            handler.addObject(new LightningAttack(x-LightningAttack.range, y - 24, ID.LightningAttack, handler));
+        } else if (canSwordAttack) {
+            handler.addObject(new SwordAttack(x-SwordAttack.range, y - 24, ID.SwordAttack, handler));
+        } else {
+            System.out.println("You cannot attack at this time");
+        }
         KeyInput.leftAttack = false;
     }
 
     public void rightAttack() {
-        handler.addObject(new SwordAttack(SwordAttack.range, y - 24, ID.SwordAttack, handler));
-        //handler.addObject(new LightningAttack(x, y - 24, ID.LightningAttack, handler));
+        if(canLightningAttack) {
+            handler.addObject(new LightningAttack(x, y - 24, ID.LightningAttack, handler));
+        } else if (canSwordAttack) {
+            handler.addObject(new SwordAttack(SwordAttack.range, y - 24, ID.SwordAttack, handler));
+        } else {
+            System.out.println("You cannot attack at this time");
+        }
         KeyInput.rightAttack = false;
     }
 }
