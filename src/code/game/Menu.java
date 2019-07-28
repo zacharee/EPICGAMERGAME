@@ -45,6 +45,7 @@ public class Menu extends MouseAdapter {
 
         if(mouseOver(mx, my, Game.WIDTH/2-97, Game.HEIGHT/2 + 86, 166, 53)) {
             //quit
+            System.exit(1);
         }
     }
 
