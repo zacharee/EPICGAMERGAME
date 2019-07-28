@@ -5,7 +5,7 @@ import java.awt.image.BufferStrategy;
 // fix it so that you can't go left further than where you spawned
 // Fix movement - double jump inconsistencies and velocity changes
 // Make meilueghghg sword attacks be 1 quick swipe instead of a constant one*/
-// Make a Spawn class to deal with all Object additions
+
 public class Game extends Canvas implements Runnable{
 
     public static final int WIDTH = 1280, HEIGHT = 720;
@@ -33,21 +33,6 @@ public class Game extends Canvas implements Runnable{
         player = new Player(410, 250, ID.Player, handler);
 
         System.out.println("Yes");
-
-        //This isn't called, ever. So I'm going to make a Spawn class eventually that will deal with this
-        //Currently it's located in Menu.java
-        if(gameState == STATE.Game) {
-            System.out.println("Active");
-            handler.addObject(new Background(handler));
-            handler.addObject(new Ground(0, 460, ID.Ground));
-            handler.addObject(new Platform(400, 350, ID.Platform, "assets/GrassPlatform.png"));
-            handler.addObject(player);
-            handler.addObject(new WeakMinion(WIDTH - 50, 460, ID.WeakMinion));
-            handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
-            for(int i = 600; i < 5601; i = i + 500) {
-                handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));
-            }
-        }
     }
 
     public synchronized void start() {
@@ -122,14 +107,13 @@ public class Game extends Canvas implements Runnable{
 
         Graphics g = bs.getDrawGraphics();
 
-        g.setFont(new Font("Verdana", 1, 16));
-        g.setColor(Color.GREEN);    //FPS counter colour
-        g.drawString( fps+" FPS", WIDTH-100,40);
-
         handler.render(g);
 
         if(gameState == STATE.Game) {
             hud.render(g);
+            g.setFont(new Font("Verdana", 1, 16));
+            g.setColor(Color.GREEN);    //FPS counter colour
+            g.drawString( fps+" FPS", WIDTH-128,40);
         } else if (gameState == STATE.Menu){
             menu.render(g);
         }

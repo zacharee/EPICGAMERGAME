@@ -11,10 +11,13 @@ public class Menu extends MouseAdapter {
     public BufferedImage menuImage;
     private Game game;
     private Handler handler;
+    public Spawner spawn;
 
     public Menu(Game game, Handler handler) {
         this.game = game;
         this.handler = handler;
+
+        spawn = new Spawner(game, handler);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -27,16 +30,8 @@ public class Menu extends MouseAdapter {
         if(mouseOver(mx, my, Game.WIDTH/2-163, Game.HEIGHT/2 - 89, 303, 89)) {
             //Play game
             game.gameState = STATE.Game;
-            System.out.println("Active");
-            handler.addObject(new Background(handler));
-            handler.addObject(new Ground(0, 460, ID.Ground));
-            handler.addObject(new Platform(400, 350, ID.Platform, "assets/GrassPlatform.png"));
-            handler.addObject(Game.player);
-            handler.addObject(new WeakMinion(Game.WIDTH - 50, 460, ID.WeakMinion));
-            handler.addObject(new DoubleJumpPowerup(Game.WIDTH/2, 400, ID.DoubleJumpPowerup));
-            for(int i = 600; i < 5601; i = i + 500) {
-                handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));
-            }
+
+            spawn.spawnTestGame();
         }
 
         if(mouseOver(mx, my, Game.WIDTH/2-131, Game.HEIGHT/2 + 7, 234, 73)) {
