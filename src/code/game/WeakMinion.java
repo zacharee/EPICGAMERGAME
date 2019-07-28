@@ -1,5 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +43,15 @@ public class WeakMinion extends GameObject {
             System.out.println("File not found");
             System.exit(0);
         }
-        g.drawImage(minionImage, x, y-32, null);
+        if (this.velX < 0) {
+            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+            tx.translate(-minionImage.getWidth(null), 0);
+            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            minionImage = op.filter(minionImage, null);
+            g.drawImage(minionImage, x, y - 32, null);
+        } else {
+            g.drawImage(minionImage, x, y - 32, null);
+        }
     }
 
 }
