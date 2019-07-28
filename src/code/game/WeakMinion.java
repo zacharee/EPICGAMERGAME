@@ -1,9 +1,14 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class WeakMinion extends GameObject {
 
     public static int WEAK_MINION_HEALTH = 100;
     Handler handler;
+    private BufferedImage minionImage;
 
     public WeakMinion(int x, int y, ID id) {
         super(x, y, id);
@@ -30,8 +35,13 @@ public class WeakMinion extends GameObject {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.RED);
-        g.fillRect(x, y, 24, 24);
+        try {
+            minionImage = ImageIO.read(new File("assets/WeakMinion.png"));
+        } catch (IOException e) {
+            System.out.println("File not found");
+            System.exit(0);
+        }
+        g.drawImage(minionImage, x, y, null);
     }
 
 }
