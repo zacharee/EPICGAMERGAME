@@ -13,7 +13,6 @@ public class Spawner {
     }
 
     public void spawnTestGame() {
-        System.out.println("Active");
         handler.addObject(new Background(handler));
         handler.addObject(new Ground(0, 460, ID.Ground));
         handler.addObject(new Platform(400, 350, ID.Platform, "assets/GrassPlatform.png"));

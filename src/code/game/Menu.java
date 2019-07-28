@@ -24,9 +24,6 @@ public class Menu extends MouseAdapter {
         int mx = e.getX();
         int my = e.getY();
 
-        System.out.println(mx);
-        System.out.println(my);
-
         if(mouseOver(mx, my, Game.WIDTH/2-163, Game.HEIGHT/2 - 89, 303, 89)) {
             //Play game
             game.gameState = STATE.Game;
