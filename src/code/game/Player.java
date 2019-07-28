@@ -57,8 +57,8 @@ public class Player extends GameObject {
             GameObject tempObject = handler.object.get(i);
             if(tempObject.getID() == ID.WeakMinion) {
                 if(getBounds().intersects(tempObject.getBounds())) {
-                    PLAYER_HEALTH -= 2;
-                    WeakMinion.WEAK_MINION_HEALTH -=2;
+                    //PLAYER_HEALTH -= 2;
+                    //WeakMinion.WEAK_MINION_HEALTH -=2;
                     if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
                         System.out.println("You killed a weak minion");
                         handler.object.remove(tempObject);
@@ -89,6 +89,16 @@ public class Player extends GameObject {
                 if (handler.object.get(4).getBounds().intersects(tempObject.getBounds())) {
                     System.out.println("Hit!");
                     WeakMinion.WEAK_MINION_HEALTH -= 2;
+                    if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
+                        System.out.println("You killed a weak minion");
+                        handler.object.remove(handler.object.get(4));
+                    }
+                }
+            }
+            if(tempObject.getID() == ID.SwordAttack) {
+                if (handler.object.get(4).getBounds().intersects(tempObject.getBounds())) {
+                    System.out.println("Hit!");
+                    WeakMinion.WEAK_MINION_HEALTH -= 20;
                     if(WeakMinion.WEAK_MINION_HEALTH <= 0) {
                         System.out.println("You killed a weak minion");
                         handler.object.remove(handler.object.get(4));
@@ -175,14 +185,15 @@ public class Player extends GameObject {
             }, 0, 50);
         }
     }
-
     public void leftAttack() {
-        handler.addObject(new LightningAttack(x-LightningAttack.range, y - 24, ID.LightningAttack, handler));
-        KeyInput.leftAttack=false;
+        handler.addObject(new SwordAttack(x-SwordAttack.range, y - 24, ID.SwordAttack, handler));
+        //handler.addObject(new LightningAttack(x-LightningAttack.range, y - 24, ID.LightningAttack, handler));
+        KeyInput.leftAttack = false;
     }
 
     public void rightAttack() {
-        handler.addObject(new LightningAttack(x, y - 24, ID.LightningAttack, handler));
+        handler.addObject(new SwordAttack(SwordAttack.range, y - 24, ID.SwordAttack, handler));
+        //handler.addObject(new LightningAttack(x, y - 24, ID.LightningAttack, handler));
         KeyInput.rightAttack = false;
     }
 }

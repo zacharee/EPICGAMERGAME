@@ -3,7 +3,8 @@ import java.awt.image.BufferStrategy;
 
 //TODO
 // fix it so that you can't go left further than where you spawned
-// Fix lightning not always disappearing when held down for too long - extra lighting bolts are being shot but not removed when button is held (I think)
+// Fix movement - double jump inconsistencies and velocity changes
+// Make meilueghghg attacks be 1 quick swipe instead of a constant one
 
 public class Game extends Canvas implements Runnable{
 
@@ -31,7 +32,7 @@ public class Game extends Canvas implements Runnable{
         handler.addObject(new Ground(0, 460, ID.Ground));
         handler.addObject(new Platform(400, 350, ID.Platform, "assets/GrassPlatform.png"));
         handler.addObject(player);
-        handler.addObject(new WeakMinion(WIDTH-50, 460, ID.WeakMinion));
+        handler.addObject(new WeakMinion(WIDTH - 50, 460, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
         for(int i = 600; i < 5601; i = i + 500) {
             handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));

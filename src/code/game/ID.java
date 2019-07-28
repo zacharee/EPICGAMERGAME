@@ -5,6 +5,7 @@ public enum ID {
     Ground(),
     DoubleJumpPowerup(),
     LightningAttack(),
+    SwordAttack(),
     HealthPowerup(),
     Platform(),
     MeleeAttack(),
