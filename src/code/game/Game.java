@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 // fix it so that you can't go left further than where you spawned
 // Fix movement - double jump inconsistencies and velocity changes
 // Make meilueghghg sword attacks be 1 quick swipe instead of a constant one*/
+// Make a Spawn class to deal with all Object additions
 public class Game extends Canvas implements Runnable{
 
     public static final int WIDTH = 1280, HEIGHT = 720;
@@ -33,6 +34,8 @@ public class Game extends Canvas implements Runnable{
 
         System.out.println("Yes");
 
+        //This isn't called, ever. So I'm going to make a Spawn class eventually that will deal with this
+        //Currently it's located in Menu.java
         if(gameState == STATE.Game) {
             System.out.println("Active");
             handler.addObject(new Background(handler));
