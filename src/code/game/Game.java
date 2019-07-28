@@ -15,26 +15,35 @@ public class Game extends Canvas implements Runnable{
     private Handler handler;
     private HUD hud;
     private int fps;
+    private Menu menu;
+
+    public STATE gameState = STATE.Menu;
 
     public Game() {
         handler = new Handler();
+        menu = new Menu(this, handler);
+        hud = new HUD();
+
         this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(menu);
 
         new Window(WIDTH, HEIGHT, "BudgetScrolls", this);
 
-        hud = new HUD();
-
         player = new Player(410, 250, ID.Player, handler);
 
-        //X currently not needed - Y is weird, need fixing/reworking. ID is important though
-        handler.addObject(new Background(handler));
-        handler.addObject(new Ground(0, 460, ID.Ground));
-        handler.addObject(new Platform(400, 350, ID.Platform, "assets/GrassPlatform.png"));
-        handler.addObject(player);
-        handler.addObject(new WeakMinion(WIDTH - 50, 460, ID.WeakMinion));
-        handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
-        for(int i = 600; i < 5601; i = i + 500) {
-            handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));
+        System.out.println("Yes");
+
+        if(gameState == STATE.Game) {
+            System.out.println("Active");
+            handler.addObject(new Background(handler));
+            handler.addObject(new Ground(0, 460, ID.Ground));
+            handler.addObject(new Platform(400, 350, ID.Platform, "assets/GrassPlatform.png"));
+            handler.addObject(player);
+            handler.addObject(new WeakMinion(WIDTH - 50, 460, ID.WeakMinion));
+            handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
+            for(int i = 600; i < 5601; i = i + 500) {
+                handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));
+            }
         }
     }
 
@@ -91,8 +100,14 @@ public class Game extends Canvas implements Runnable{
     }
 
     public void tick() {
+
         handler.tick();
-        hud.tick();
+
+        if(gameState == STATE.Game) {
+            hud.tick();
+        } else if (gameState == STATE.Menu){
+            menu.tick();
+        }
     }
 
     public void render() {
@@ -104,14 +119,17 @@ public class Game extends Canvas implements Runnable{
 
         Graphics g = bs.getDrawGraphics();
 
-        handler.render(g);
-
         g.setFont(new Font("Verdana", 1, 16));
         g.setColor(Color.GREEN);    //FPS counter colour
         g.drawString( fps+" FPS", WIDTH-100,40);
 
+        handler.render(g);
 
-        hud.render(g);
+        if(gameState == STATE.Game) {
+            hud.render(g);
+        } else if (gameState == STATE.Menu){
+            menu.render(g);
+        }
 
         g.dispose();
         bs.show();
