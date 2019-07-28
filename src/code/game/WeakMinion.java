@@ -21,7 +21,7 @@ public class WeakMinion extends GameObject {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 24, 24);
+        return new Rectangle(x, y-32, 15, 32);
     }
 
     public void tick() {
@@ -41,7 +41,7 @@ public class WeakMinion extends GameObject {
             System.out.println("File not found");
             System.exit(0);
         }
-        g.drawImage(minionImage, x, y, null);
+        g.drawImage(minionImage, x, y-32, null);
     }
 
 }
