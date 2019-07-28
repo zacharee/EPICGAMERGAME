@@ -32,12 +32,14 @@ public class KeyInput extends KeyAdapter {
                     dDown = true;
                 }
 
-                if(key == KeyEvent.VK_LEFT) {
+                if(key == KeyEvent.VK_LEFT&&!leftDown) {
                     leftAttack = true;
+                    leftDown=true;
                 }
 
-                if(key == KeyEvent.VK_RIGHT) {
+                if(key == KeyEvent.VK_RIGHT&&!rightDown) {
                     rightAttack = true;
+                    rightDown=true;
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
@@ -74,10 +76,12 @@ public class KeyInput extends KeyAdapter {
 
                 if(key == KeyEvent.VK_LEFT) {
                     Player.leftAttackFade = true;
+                    leftDown=false;
                 }
 
                 if(key == KeyEvent.VK_RIGHT) {
                     Player.rightAttackFade = true;
+                    rightDown=false;
                 }
 
                 if(key == KeyEvent.VK_SPACE) {
