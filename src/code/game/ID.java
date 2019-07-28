@@ -4,7 +4,7 @@ public enum ID {
     WeakMinion(),
     Ground(),
     DoubleJumpPowerup(),
-    LighteningAttack(),
+    LightningAttack(),
     HealthPowerup(),
     Platform(),
     MeleeAttack(),

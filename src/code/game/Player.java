@@ -85,7 +85,7 @@ public class Player extends GameObject {
                     else if(getY()>tempObject.getY()+16) setVelY(getVelY()*-1);
                 }
             }
-            if(tempObject.getID() == ID.LighteningAttack) {
+            if(tempObject.getID() == ID.LightningAttack) {
                 if (handler.object.get(4).getBounds().intersects(tempObject.getBounds())) {
                     System.out.println("Hit!");
                     WeakMinion.WEAK_MINION_HEALTH -= 2;
@@ -154,7 +154,6 @@ public class Player extends GameObject {
                         setVelY(getVelY()+0.5);
                     }
                 }
-
             }, 0, 50);
         }
         else if(!isFalling) {
@@ -178,12 +177,12 @@ public class Player extends GameObject {
     }
 
     public void leftAttack() {
-        handler.addObject(new LightningAttack(x-LightningAttack.range, y - 24, ID.LighteningAttack, handler));
-        KeyInput.leftAttack = false;
+        handler.addObject(new LightningAttack(x-LightningAttack.range, y - 24, ID.LightningAttack, handler));
+        KeyInput.leftAttack=false;
     }
 
     public void rightAttack() {
-        handler.addObject(new LightningAttack(x, y - 24, ID.LighteningAttack, handler));
+        handler.addObject(new LightningAttack(x, y - 24, ID.LightningAttack, handler));
         KeyInput.rightAttack = false;
     }
 }

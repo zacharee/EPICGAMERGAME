@@ -21,11 +21,21 @@ public class LightningAttack extends GameObject {
     public void render(Graphics g) {
 
         g.setColor(new Color(52, 204, 255));
-        g.fillRect(x, y, range, 10);
+        if(KeyInput.leftDown) {
+            g.fillRect(Game.player.getX() - range, Game.player.getY() - 40, range, 10);
+        }
+        else {
+            g.fillRect(Game.player.getX(), Game.player.getY() - 40, range, 10);
+        }
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, range, 24);
+        if(KeyInput.leftDown) {
+            return new Rectangle(Game.player.getX()-range, Game.player.getY() - 40, range, 24);
+        }
+        else {
+            return new Rectangle(Game.player.getX(), Game.player.getY()-40, range, 24);
+        }
     }
 
     public void fade() {
