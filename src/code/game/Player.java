@@ -53,7 +53,6 @@ public class Player extends GameObject {
 
     private void collision() {
         isStanding=false;
-        System.out.println("collision");
         for(int i = 0; i < handler.object.size(); i++ ) {
             GameObject tempObject = handler.object.get(i);
             if(tempObject.getID() == ID.WeakMinion) {
@@ -80,7 +79,7 @@ public class Player extends GameObject {
             }
             if(tempObject.isStandable) {
                 if(getBounds().intersects(tempObject.getBounds())) {
-                    if(getY()<tempObject.getY()+16) {setVelY(0);setY(tempObject.getY());isFalling=false;isStanding=true;System.out.println("   detected");}
+                    if(getY()<tempObject.getY()+16) {setVelY(0);setY(tempObject.getY()+1);isFalling=false;isStanding=true;}
                     else if(getX()<tempObject.getX()&&getY()>tempObject.getY()+1) setVelX(0);
                     else if(getX()>tempObject.getX()+118&&getY()>tempObject.getY()+1) setVelX(0);
                     else if(getY()>tempObject.getY()+16) setVelY(getVelY()*-1);
