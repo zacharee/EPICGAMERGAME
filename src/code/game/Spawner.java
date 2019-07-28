@@ -23,6 +23,4 @@ public class Spawner {
             handler.addObject(new HealthPowerUp(i, 400, ID.HealthPowerup));
         }
     }
-
-
 }

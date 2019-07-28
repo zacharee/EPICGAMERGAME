@@ -12,6 +12,10 @@ public class Menu extends MouseAdapter {
     private Game game;
     private Handler handler;
     public Spawner spawn;
+    boolean playOutline = false, optionOutline = false, quitOutline = false;
+
+    int mX;
+    int mY;
 
     public Menu(Game game, Handler handler) {
         this.game = game;
@@ -20,7 +24,32 @@ public class Menu extends MouseAdapter {
         spawn = new Spawner(game, handler);
     }
 
+    public void mouseMoved(MouseEvent e) {
+        mX = e.getX();
+        mY = e.getY();
+
+        if(mouseOver(mX, mY, Game.WIDTH/2-163, Game.HEIGHT/2 - 89, 303, 89)) {
+            playOutline = true;
+            optionOutline = false;
+            quitOutline = false;
+        }
+
+        if(mouseOver(mX, mY, Game.WIDTH/2-131, Game.HEIGHT/2 + 7, 234, 73)) {
+            playOutline = false;
+            optionOutline = true;
+            quitOutline = false;
+        }
+
+        if(mouseOver(mX, mY, Game.WIDTH/2-97, Game.HEIGHT/2 + 86, 166, 53)) {
+            playOutline = false;
+            optionOutline = false;
+            quitOutline = true;
+        }
+
+    }
+
     public void mousePressed(MouseEvent e) {
+
         int mx = e.getX();
         int my = e.getY();
 
@@ -71,8 +100,19 @@ public class Menu extends MouseAdapter {
             System.exit(0);
         }
 
+        if(playOutline) {
+            g.setColor(Color.green);
+            g.drawRect(Game.WIDTH/2-163, Game.HEIGHT/2 - 89, 303, 89);
+        } else if (optionOutline) {
+            g.setColor(Color.green);
+            g.drawRect(Game.WIDTH/2-131, Game.HEIGHT/2 + 7, 234, 73);
+        } else if (quitOutline) {
+            g.setColor(Color.green);
+            g.drawRect(Game.WIDTH/2-97, Game.HEIGHT/2 + 86, 166, 53);
+        }
+
         g.drawImage(menuImage, 150, 0, null);
 
-        g.setColor(Color.green);
+        g.dispose();
     }
 }

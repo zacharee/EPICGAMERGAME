@@ -15,7 +15,7 @@ public class Player extends GameObject {
     public static boolean canDoubleJump=false, isFalling=false, isStanding=true, doubleJump=false, rightAttackFade = false, leftAttackFade = false;
     public BufferedImage playerImage;
     private Timer timer;
-    public static boolean canLightningAttack = false, canSwordAttack = false;
+    public static boolean canLightningAttack = true, canSwordAttack = false;
 
     public Player(int x, int y, ID id, Handler handler) {
         super(x, y, id);
