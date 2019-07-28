@@ -52,8 +52,9 @@ public class Player extends GameObject {
     }
 
     private void collision() {
+        isStanding=false;
         for(int i = 0; i < handler.object.size(); i++ ) {
-
+            System.out.println("collision");
             GameObject tempObject = handler.object.get(i);
             if(tempObject.getID() == ID.WeakMinion) {
                 if(getBounds().intersects(tempObject.getBounds())) {
@@ -79,7 +80,7 @@ public class Player extends GameObject {
             }
             if(tempObject.isStandable) {
                 if(getBounds().intersects(tempObject.getBounds())) {
-                    if(getY()<tempObject.getY()+16) {setVelY(0);setY(tempObject.getY());isFalling=false;}
+                    if(getY()<tempObject.getY()+16) {setVelY(0);setY(tempObject.getY());isFalling=false;isStanding=true;System.out.println("   detected");}
                     else if(getX()<tempObject.getX()&&getY()>tempObject.getY()+1) setVelX(0);
                     else if(getX()>tempObject.getX()+118&&getY()>tempObject.getY()+1) setVelX(0);
                     else if(getY()>tempObject.getY()+16) setVelY(getVelY()*-1);
@@ -98,13 +99,13 @@ public class Player extends GameObject {
         }
         if(!isStanding&&!isFalling) {
             isFalling=true;
+            isStanding=true;
             timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     if(!isFalling) {
                         doubleJump=false;
-                        isStanding=true;
                         setVelY(0);
                         timer.cancel();
                     }

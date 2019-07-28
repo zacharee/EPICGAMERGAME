@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 //TODO
-// fix falling through floor
 // fix it so that you can't go left further than where you spawned
 // Fix lightning not always disappearing when held down for too long - extra lighting bolts are being shot but not removed when button is held (I think)
 
@@ -25,12 +24,12 @@ public class Game extends Canvas implements Runnable{
 
         hud = new HUD();
 
-        player = new Player(50, 460, ID.Player, handler);
+        player = new Player(410, 250, ID.Player, handler);
 
         //X currently not needed - Y is weird, need fixing/reworking. ID is important though
         handler.addObject(new Background(handler));
         handler.addObject(new Ground(0, 460, ID.Ground));
-        handler.addObject(new Platform(690, 350, ID.Platform, "assets/GrassPlatform.png"));
+        handler.addObject(new Platform(400, 350, ID.Platform, "assets/GrassPlatform.png"));
         handler.addObject(player);
         handler.addObject(new WeakMinion(WIDTH-50, 460, ID.WeakMinion));
         handler.addObject(new DoubleJumpPowerup(WIDTH/2, 400, ID.DoubleJumpPowerup));
@@ -107,7 +106,7 @@ public class Game extends Canvas implements Runnable{
 
         handler.render(g);
 
-        g.setFont(new Font("Verdanna", 1, 16));
+        g.setFont(new Font("Verdana", 1, 16));
         g.setColor(Color.GREEN);    //FPS counter colour
         g.drawString( fps+" FPS", WIDTH-100,40);
 
