@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class HUD {
 
+    //Green value is a spectrum from green to red in relation to health
     public int greenValue = 255;
 
     public void tick() {
