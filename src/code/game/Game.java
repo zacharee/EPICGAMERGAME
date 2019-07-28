@@ -4,7 +4,7 @@ import java.awt.image.BufferStrategy;
 //TODO
 // fix it so that you can't go left further than where you spawned
 // Fix movement - double jump inconsistencies and velocity changes
-// Make meilueghghg attacks be 1 quick swipe instead of a constant one
+// Make meilueghghg sword attacks be 1 quick swipe instead of a constant one
 
 public class Game extends Canvas implements Runnable{
 
