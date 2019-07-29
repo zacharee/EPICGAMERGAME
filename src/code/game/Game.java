@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 // Fix movement - double jump inconsistencies and velocity changes
 // Make meilueghghg sword attacks be 1 quick swipe instead of a constant one
 // Add Sword powerup and sword image held by character
+// Optimize collision better - make it its own class and have 2 tempObject arrays instead of "this"
 
 public class Game extends Canvas implements Runnable{
 
