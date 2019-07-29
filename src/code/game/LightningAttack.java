@@ -1,50 +1,42 @@
 import java.awt.*;
 
 public class LightningAttack extends GameObject {
-
-    Handler handler;
     public static int range = 250;
     public static int lightningDamage = 2;
 
-    public LightningAttack(int x, int y, ID id, Handler handler) {
-        super(x, y, id);
-        this.handler = handler;
+    public LightningAttack(int x, int y, ID id, Game game) {
+        super(x, y, id, game);
     }
 
     public void tick() {
-        if(Player.rightAttackFade) {
+        if (game.player.rightAttackFade) {
             fade();
-        } else if (Player.leftAttackFade) {
+        } else if (game.player.leftAttackFade) {
             fade();
         }
     }
 
     public void render(Graphics g) {
-
         g.setColor(new Color(52, 204, 255));
-        if(KeyInput.leftDown) {
-            g.fillRect(Game.player.getX() - range, Game.player.getY() - 35, range, 10);
-        }
-        else {
-            g.fillRect(Game.player.getX() + 20, Game.player.getY() - 35, range, 10);
+        if (KeyInput.leftDown) {
+            g.fillRect(game.player.getX() - range, game.player.getY() - 35, range, 10);
+        } else {
+            g.fillRect(game.player.getX() + 20, game.player.getY() - 35, range, 10);
         }
     }
 
     public Rectangle getBounds() {
-        if(KeyInput.leftDown) {
-            return new Rectangle(Game.player.getX() - range, Game.player.getY() - 35, range, 24);
-        }
-        else {
-            return new Rectangle(Game.player.getX() + 20, Game.player.getY() - 35, range, 24);
+        if (KeyInput.leftDown) {
+            return new Rectangle(game.player.getX() - range, game.player.getY() - 35, range, 24);
+        } else {
+            return new Rectangle(game.player.getX() + 20, game.player.getY() - 35, range, 24);
         }
     }
 
     public void fade() {
-        for(int i = 0; i < handler.object.size(); i++) {
-            handler.object.remove(this);
-        }
-        Player.rightAttackFade = false;
-        Player.leftAttackFade = false;
+        game.handler.removeObject(this);
+        game.player.rightAttackFade = false;
+        game.player.leftAttackFade = false;
     }
 
 }

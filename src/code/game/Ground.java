@@ -1,10 +1,9 @@
 import java.awt.*;
 
 public class Ground extends GameObject {
-
-    public Ground(int x, int y, ID id) {
-        super(x, y, id);
-        isStandable=true;
+    public Ground(int x, int y, ID id, Game game) {
+        super(x, y, id, game);
+        isStandable = true;
     }
 
     public Rectangle getBounds() {
@@ -14,7 +13,6 @@ public class Ground extends GameObject {
     public void tick() {
 
     }
-
 
     public void render(Graphics g) {
 

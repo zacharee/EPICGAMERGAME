@@ -8,46 +8,46 @@ import java.awt.image.BufferStrategy;
 // Add Sword powerup and sword image held by character
 // Optimize collision better - make it its own class and have 2 tempObject arrays instead of "this"
 
-public class Game extends Canvas implements Runnable{
-
-    public static final int WIDTH = 1280, HEIGHT = 720;
-    public static Player player;
+public class Game extends Canvas implements Runnable {
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
 
     private Thread thread;
-    private boolean running = false;
-    private Handler handler;
     private HUD hud;
-    private int fps;
     private Menu menu;
+    private int fps;
+    private boolean running = false;
+    public Player player;
+    public Handler handler;
 
     public STATE gameState = STATE.Menu;
 
     public Game() {
         handler = new Handler();
-        menu = new Menu(this, handler);
-        hud = new HUD();
+        menu = new Menu(this);
+        hud = new HUD(this);
 
-        this.addKeyListener(new KeyInput(handler));
+        this.addKeyListener(new KeyInput(this));
         this.addMouseListener(menu);
         this.addMouseMotionListener(menu);
 
         new Window(WIDTH, HEIGHT, "BudgetScrolls", this);
 
-        player = new Player(410, 250, ID.Player, handler);
+        player = new Player(410, 250, ID.Player, handler, this);
 
         System.out.println("Yes");
     }
 
     public synchronized void start() {
         thread = new Thread(this);
-        thread.start();
         running = true;
+        thread.start();
     }
 
     public void stop() {
         try {
-            thread.join();
             running = false;
+            thread.join();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,12 +60,7 @@ public class Game extends Canvas implements Runnable{
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
-        //Sometimes it reaches the while(running) before running is set to true, idk why. The sleep fixes it for now
-        try {
-            thread.sleep(100);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         while(running) {
             requestFocus();
             long now = System.nanoTime();
@@ -75,9 +70,7 @@ public class Game extends Canvas implements Runnable{
                 tick();
                 delta--;
             }
-            if(running) {
-                render();
-            }
+            render();
             frames++;
 
             if(System.currentTimeMillis() - timer > 1000) {
@@ -87,11 +80,9 @@ public class Game extends Canvas implements Runnable{
                 frames = 0;
             }
         }
-        stop();
     }
 
     public void tick() {
-
         handler.tick();
 
         if(gameState == STATE.Game) {
@@ -125,14 +116,10 @@ public class Game extends Canvas implements Runnable{
         bs.show();
     }
 
-    public static int clamp (int var, int min, int max) {
-        if(var >= max) {
-            return var = max;
-        } else if (var <= min) {
-            return var = min;
-        } else {
-            return var;
-        }
+    public static int clamp(int var, int min, int max) {
+        if (var >= max) {
+            return max;
+        } else return Math.max(var, min);
     }
 
     public static void main(String[] args) {

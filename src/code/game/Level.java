@@ -3,8 +3,12 @@ import java.io.*;
 public class Level {
 
     File levelFile;
-    public Level(String levelFile) {
+    Handler handler;
+    
+    public Level(String levelFile, Handler handler) {
         this.levelFile = new File(levelFile);
+        this.handler = handler;
+        parseLevel(this.levelFile);
     }
 
 
@@ -14,7 +18,9 @@ public class Level {
             BufferedReader br = new BufferedReader(new FileReader(levelFile));
             while((line = br.readLine())!=null) {
                 String[] values = line.split(",");
-                //Add values
+                for(int i=0;i<values.length;i++) {
+
+                }
             }
         }
         catch (FileNotFoundException e) {

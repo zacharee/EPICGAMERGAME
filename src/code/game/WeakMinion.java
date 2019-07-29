@@ -7,32 +7,27 @@ import java.io.File;
 import java.io.IOException;
 
 public class WeakMinion extends GameObject {
-
     public static int WEAK_MINION_HEALTH = 100;
-    Handler handler;
     private BufferedImage minionImage;
 
-    public WeakMinion(int x, int y, ID id) {
-        super(x, y, id);
-
-        this.handler = handler;
+    public WeakMinion(int x, int y, ID id, Game game) {
+        super(x, y, id, game);
 
         velX = 2;
         velY = 0;
-
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y-32, 15, 32);
+        return new Rectangle(x, y - 32, 15, 32);
     }
 
     public void tick() {
         x += velX;
         y += velY;
 
-        if(y <= 0 || y >= Game.HEIGHT - 140) velY *= -1;
+        if (y <= 0 || y >= Game.HEIGHT - 140) velY *= -1;
 
-        if(x <= 0 || x >= Game.WIDTH - 42) velX *= -1;
+        if (x <= 0 || x >= Game.WIDTH - 42) velX *= -1;
 
     }
 

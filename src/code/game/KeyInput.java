@@ -2,19 +2,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
-
-    private Handler handler;
+    private Game game;
     public static boolean aDown = false, dDown = false, rightAttack = false, leftAttack = false, rightDown = false, leftDown = false;
 
-    public KeyInput(Handler handler) {
-        this.handler = handler;
+    public KeyInput(Game game) {
+        this.game = game;
     }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        for (int i = 0; i < handler.object.size(); i++) {
-            GameObject tempObject = handler.object.get(i);
+        for (int i = 0; i < game.handler.object.size(); i++) {
+            GameObject tempObject = game.handler.object.get(i);
 
             if (tempObject.getID() == ID.Player) {
                 //Key events for the player
@@ -40,10 +39,11 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if (key == KeyEvent.VK_SPACE) {
-                    Game.player.jump();
+                    game.player.jump();
                 }
+
                 if (key == KeyEvent.VK_SHIFT) {
-                    if (!Player.isFalling && tempObject.getVelX() < 5 && tempObject.getVelX() > -5)
+                    if (!game.player.isFalling && tempObject.getVelX() < 5 && tempObject.getVelX() > -5)
                         tempObject.setVelX(tempObject.getVelX() * 2);
                 }
             }
@@ -55,8 +55,8 @@ public class KeyInput extends KeyAdapter {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
-        for (int i = 0; i < handler.object.size(); i++) {
-            GameObject tempObject = handler.object.get(i);
+        for (int i = 0; i < game.handler.object.size(); i++) {
+            GameObject tempObject = game.handler.object.get(i);
 
             if (tempObject.getID() == ID.Player) {
                 //Key events for the player
@@ -66,6 +66,7 @@ public class KeyInput extends KeyAdapter {
                     else tempObject.setVelX(0);
                     aDown = false;
                 }
+
                 if (key == KeyEvent.VK_D) {
                     if (aDown) tempObject.setVelX(-3);
                     else tempObject.setVelX(0);
@@ -73,20 +74,21 @@ public class KeyInput extends KeyAdapter {
                 }
 
                 if (key == KeyEvent.VK_LEFT) {
-                    Player.leftAttackFade = true;
+                    game.player.leftAttackFade = true;
                     leftDown = false;
                 }
 
                 if (key == KeyEvent.VK_RIGHT) {
-                    Player.rightAttackFade = true;
+                    game.player.rightAttackFade = true;
                     rightDown = false;
                 }
 
                 if (key == KeyEvent.VK_SPACE) {
                     //ground level is 460, make jump for key release work plz xx
                 }
+
                 if (key == KeyEvent.VK_SHIFT) {
-                    if (!Player.isFalling) tempObject.setVelX(tempObject.getVelX() / 2);
+                    if (!game.player.isFalling) tempObject.setVelX(tempObject.getVelX() / 2);
                 }
             }
         }

@@ -4,13 +4,13 @@ public class Platform extends GameObject {
 
     public Image texture;
 
-    public Platform(int x, int y, ID id, String textureLocation) {
-        this.x=x;
-        this.y=y;
-        this.id=id;
+    public Platform(int x, int y, ID id, String textureLocation, Game game) {
+        super(x, y, id, game);
+
         texture = Toolkit.getDefaultToolkit().createImage(textureLocation);
-        isStandable=true;
+        isStandable = true;
     }
+
     public void tick() {
 
     }
