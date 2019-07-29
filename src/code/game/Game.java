@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable{
 
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(menu);
+        this.addMouseMotionListener(menu);
 
         new Window(WIDTH, HEIGHT, "BudgetScrolls", this);
 
@@ -52,7 +53,7 @@ public class Game extends Canvas implements Runnable{
 
     public void run() {
         long lastTime = System.nanoTime();
-        double amountOfTicks = 64.0;
+        double amountOfTicks = 50.0;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
@@ -116,6 +117,21 @@ public class Game extends Canvas implements Runnable{
             g.drawString( fps+" FPS", WIDTH-128,40);
         } else if (gameState == STATE.Menu){
             menu.render(g);
+
+            //Theory number 2
+//            if(Menu.playOutline) {
+//                System.out.println("playOutline");
+//                g.setColor(Color.green);
+//                g.drawRect(Game.WIDTH/2-163, Game.HEIGHT/2 - 89, 303, 89);
+//            } else if (Menu.optionOutline) {
+//                System.out.println("optionOutline");
+//                g.setColor(Color.green);
+//                g.drawRect(Game.WIDTH/2-131, Game.HEIGHT/2 + 7, 234, 73);
+//            } else if (Menu.quitOutline) {
+//                System.out.println("quitOutline");
+//                g.setColor(Color.green);
+//                g.drawRect(Game.WIDTH/2-97, Game.HEIGHT/2 + 86, 166, 53);
+//            }
         }
 
         g.dispose();
